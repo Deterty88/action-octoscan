@@ -1,0 +1,35 @@
+name: 'Run octoscan'
+description: 'Run octoscan.'
+author: '@hugow'
+inputs:
+  workdir:
+    description: 'Working directory relative to the root directory.'
+    default: '.'
+  ### Flags for octoscan ###
+  filter_triggers:
+    description: |
+      Scan workflows with specific triggers (comma separated list: "push,pull_request_target" or pre-configured: external/allnopr)
+      Default is `external`.
+    default: 'external'
+  filter_run: 
+    description: 'Search for expression injection only in run shell scripts.'
+    default: 'true'
+  ignore:
+    descrption: 'Regular expression matching to error messages you want to ignore.'
+  disable_rules:
+    description: 'Disable specific rules. Split on ","'
+  enable_rules:
+    description: 'Enable specific rules, this will disable all other rules. Split on ","'
+
+outputs:
+  sarif_output:
+    description: 'The name of the file containing the sarif output.'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+# Ref: https://haya14busa.github.io/github-action-brandings/
+branding:
+  icon: 'target'
+  color: 'red'
